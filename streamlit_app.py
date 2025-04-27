@@ -207,3 +207,30 @@ else:
                                   ha='center', va='bottom')
 
         st.pyplot(fig_sentiment)
+
+# --- Sectoral Submissions Grouped by Zone ---
+
+st.subheader("Sectoral Submissions Grouped by Zone")
+
+# Prepare data
+df_sector_zone = df_exploded.groupby(['zone', 'sectors_parsed']).size().reset_index(name='counts')
+
+# Pivot data for easier plotting
+pivot_table = df_sector_zone.pivot(index='sectors_parsed', columns='zone', values='counts').fillna(0)
+
+# Sort sectors by total submissions
+pivot_table['Total'] = pivot_table.sum(axis=1)
+pivot_table = pivot_table.sort_values('Total', ascending=False).drop(columns=['Total'])
+
+# Plotting
+fig, ax = plt.subplots(figsize=(14, 8), dpi=150)
+
+pivot_table.plot(kind='bar', stacked=False, ax=ax)
+
+ax.set_title('Sectoral Submissions Grouped by Zone', fontsize=18)
+ax.set_xlabel('Sector', fontsize=14)
+ax.set_ylabel('Number of Submissions', fontsize=14)
+ax.legend(title='Zone', loc='upper right')
+plt.xticks(rotation=45, ha='right')
+
+st.pyplot(fig)
