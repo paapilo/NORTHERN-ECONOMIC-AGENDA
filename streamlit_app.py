@@ -26,10 +26,10 @@ else:
         st.error("No CSV file found. Please upload a CSV file.")
         st.stop()
 
-# --- Raw Data Display ---
-if st.checkbox("Show raw data"):
-    st.subheader("Raw Data")
-    st.dataframe(df)
+# # --- Raw Data Display ---
+# if st.checkbox("Show raw data"):
+#     st.subheader("Raw Data")
+#     st.dataframe(df)
 
 # --- Data Cleaning ---
 columns_to_delete = [
@@ -40,10 +40,10 @@ columns_to_delete = [
 ]
 df.drop(columns=[col for col in columns_to_delete if col in df.columns], inplace=True)
 
-# --- Cleaned Data Display ---
-if st.checkbox("Show cleaned data"):
-    st.subheader("Cleaned Data")
-    st.dataframe(df)
+# # --- Cleaned Data Display ---
+# if st.checkbox("Show cleaned data"):
+#     st.subheader("Cleaned Data")
+#     st.dataframe(df)
 
 # --- Helper Functions ---
 
@@ -91,9 +91,9 @@ total_submissions = sector_counts['Number of Submissions'].sum()
 total_row = pd.DataFrame({'Sector': ['Total'], 'Number of Submissions': [total_submissions]})
 sector_counts_display = pd.concat([sector_counts, total_row], ignore_index=True)
 
-# Display sectors table
-st.subheader("Submissions per Sector (Cleaned)")
-st.dataframe(sector_counts_display)
+# # Display sectors table
+# st.subheader("Submissions per Sector")
+# st.dataframe(sector_counts_display)
 
 # --- Submissions per Sector Bar Chart ---
 st.subheader("Submissions per Sector")
@@ -134,7 +134,7 @@ from textblob import TextBlob
 nltk.download('stopwords')
 from nltk.corpus import stopwords
 
-st.header("☁️ WordCloud and Sentiment Analysis for Project Descriptions")
+st.header("WordCloud and Sentiment Analysis for Project Descriptions")
 
 # --- Preprocess Descriptions ---
 if 'description' not in df.columns:
@@ -188,7 +188,7 @@ else:
         # Show sentiment counts
         sentiment_counts = df['sentiment_label'].value_counts()
 
-        st.dataframe(sentiment_counts.rename_axis('Sentiment').reset_index(name='Number of Projects'))
+        # st.dataframe(sentiment_counts.rename_axis('Sentiment').reset_index(name='Number of Projects'))
 
         # Plot sentiment distribution
         fig_sentiment, ax_sentiment = plt.subplots(figsize=(8, 5), dpi=150)
